@@ -101,75 +101,73 @@ ApplicationWindow GetMainWindow()
     var list = ListBox.New();
     list.AddCssClass("boxed-list");
 
-    foreach (var i in Enumerable.Range(0, 22))
+    foreach (var i in Enumerable.Range(1, 22))
     {
-        Widget w = ActionRow.New();
+        Widget w = new ActionRow
+        {
+            Title = "Dummy ActionRow"
+        };
 
-        switch (i % 5)
+        switch (i % 6)
         {
             case 0:
-                var row = new EntryRow();
-                row.Title = "Item " + i;
+                var row = new EntryRow
+                {
+                    Title = "Item " + i
+                };
                 w = row;
                 break;
             case 1:
-                var spin = new SpinRow();
-                spin.Title = "Spin " + i;
-                spin.SetSubtitle("Some subtitle");
-                spin.SetAdjustment(Adjustment.New(i + 1, i, (i + 2) * 2, 1, 1, 1));
+                var spin = new SpinRow
+                {
+                    Title = "Spin " + i,
+                    Subtitle = "Some subtitle",
+                    Adjustment = Adjustment.New(i + 1, i, (i + 2) * 2, 1, 1, 1)
+                };
                 w = spin;
                 break;
             case 2:
-                var sw = new SwitchRow();
-                sw.Title = "Switch " + i;
-                // sw.IconName = "checkbox-checked-symbolic";
-                sw.SetSubtitle("Some switch for example");
+                var sw = new SwitchRow
+                {
+                    Title = "Switch " + i,
+                    Subtitle = "Some switch for example"
+                };
                 w = sw;
                 break;
             case 3:
-                var exp = new ExpanderRow();
-                exp.SetTitle("Expander");
-                exp.SetSubtitle("Some hidden settings");
-
-
-                var nestedList = new ListBox();
-                nestedList.Append(new ActionRow
+                var exp = new ExpanderRow
                 {
-                    Title = "Nested item",
-                    Subtitle = "So cool!"
-                });
-                nestedList.Append(new SwitchRow
-                {
-                    Title = "Nested switch",
-                    Subtitle = "Cool hidden switch",
-                    Activatable = true
-                });
-
-                var nestedRow = new ListBoxRow();
-
-                nestedRow.SetChild(nestedList);
+                    Title = "Expander " + i,
+                    Subtitle = "Some hidden settings"
+                };
                 exp.AddRow(new ActionRow
                 {
-                    Title = "Nested item",
+                    Title = "Nested item " + i + ".1",
                     Subtitle = "So cool!"
                 });
                 exp.AddRow(new SwitchRow
                 {
-                    Title = "Nested switch",
+                    Title = "Nested switch " + i + ".2",
                     Subtitle = "Cool hidden switch",
                     Activatable = true
                 });
-                // exp.SetChild(nestedRow);
                 w = exp;
                 break;
             case 4:
                 var dropdown = new ComboRow
                 {
-                    Title = "Combo row",
+                    Title = "Combo row " + i,
                     Subtitle = "Choose one element from dropdown list"
                 };
                 dropdown.Model = StringList.New(["Default", "First option", "Second otion"]);
                 w = dropdown;
+                break;
+            case 5:
+                var password = new PasswordEntryRow
+                {
+                    Title = "Some secret here " + i
+                };
+                w = password;
                 break;
         }
 
