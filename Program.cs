@@ -106,7 +106,7 @@ ApplicationWindow GetMainWindow()
     {
         Widget w = ActionRow.New();
 
-        switch (i % 3)
+        switch (i % 4)
         {
             case 0:
                 var row = new EntryRow();
@@ -117,7 +117,7 @@ ApplicationWindow GetMainWindow()
                 var spin = new SpinRow();
                 spin.Title = "Spin " + i;
                 spin.SetSubtitle("Some subtitle");
-                spin.SetAdjustment(Adjustment.New(i + 1, i, i * 2, 1, 1, 1));
+                spin.SetAdjustment(Adjustment.New(i + 1, i, (i + 2) * 2, 1, 1, 1));
                 w = spin;
                 break;
             case 2:
@@ -126,6 +126,42 @@ ApplicationWindow GetMainWindow()
                 // sw.IconName = "checkbox-checked-symbolic";
                 sw.SetSubtitle("Some switch for example");
                 w = sw;
+                break;
+            case 3:
+                var exp = new ExpanderRow();
+                exp.SetTitle("Expander");
+                exp.SetSubtitle("Some hidden settings");
+
+
+                var nestedList = new ListBox();
+                nestedList.Append(new ActionRow
+                {
+                    Title = "Nested item",
+                    Subtitle = "So cool!"
+                });
+                nestedList.Append(new SwitchRow
+                {
+                    Title = "Nested switch",
+                    Subtitle = "Cool hidden switch",
+                    Activatable = true
+                });
+
+                var nestedRow = new ListBoxRow();
+
+                nestedRow.SetChild(nestedList);
+                exp.AddRow(new ActionRow
+                {
+                    Title = "Nested item",
+                    Subtitle = "So cool!"
+                });
+                exp.AddRow(new SwitchRow
+                {
+                    Title = "Nested switch",
+                    Subtitle = "Cool hidden switch",
+                    Activatable = true
+                });
+                // exp.SetChild(nestedRow);
+                w = exp;
                 break;
         }
 
