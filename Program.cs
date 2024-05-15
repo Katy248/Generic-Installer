@@ -14,7 +14,6 @@ application.OnActivate += (sender, e) =>
     var window = args.Length <= 0 ? GetMainWindow() : GetSelectFileWindow();
     application.AddWindow(window);
     window.Present();
-    Console.Error.WriteLine("Window should be opened");
 };
 
 return application.RunWithSynchronizationContext(args);
@@ -106,7 +105,7 @@ ApplicationWindow GetMainWindow()
     {
         Widget w = ActionRow.New();
 
-        switch (i % 4)
+        switch (i % 5)
         {
             case 0:
                 var row = new EntryRow();
@@ -162,6 +161,15 @@ ApplicationWindow GetMainWindow()
                 });
                 // exp.SetChild(nestedRow);
                 w = exp;
+                break;
+            case 4:
+                var dropdown = new ComboRow
+                {
+                    Title = "Combo row",
+                    Subtitle = "Choose one element from dropdown list"
+                };
+                dropdown.Model = StringList.New(["Default", "First option", "Second otion"]);
+                w = dropdown;
                 break;
         }
 
