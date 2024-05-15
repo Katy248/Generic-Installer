@@ -25,18 +25,13 @@ ApplicationWindow GetSelectFileWindow()
     {
         DefaultHeight = 800
     };
-
-    var openFileBtnBox = Box.New(Orientation.Horizontal, 12);
-    openFileBtnBox.Halign = Align.Center;
-    openFileBtnBox.Append(Label.New("Open file"));
-    openFileBtnBox.Append(Image.NewFromIconName("folder-open-symbolic"));
     
     var openFileButton = new Button
     {
         // IconName = "system-file-manager-symbolic",
         Child = Box.New(Orientation.Horizontal, 12)
-            .WithChild(Label.New("Open file"))
-            .WithChild(Image.NewFromIconName("folder-open-symbolic"))
+            .AppendChild(Label.New("Open file"))
+            .AppendChild(Image.NewFromIconName("folder-open-symbolic"))
             .WithHalign(Align.Center),
         Hexpand = true,
         CssClasses = ["suggested-action", "pill"],
@@ -52,16 +47,29 @@ ApplicationWindow GetSelectFileWindow()
         Label = "Open url",
         CssClasses = ["pill"],
         Child = Box.New(Orientation.Horizontal, 12)
-            .WithChild(Label.New("Open url"))
-            .WithChild(Image.NewFromIconName("link-symbolic"))
+            .AppendChild(Label.New("Open url"))
+            .AppendChild(Image.NewFromIconName("link-symbolic"))
             .WithHalign(Align.Center),
     };
 
     var box = Box.New(Orientation.Vertical, 32)
         .WithValign(Align.Center)
-        .WithChild(GetRecentFilesBox())
-        .WithChild(openFileButton)
-        .WithChild(openUrlButton);
+        .AppendChild(Label.New("Generic Installer").WithCss("title-1"))
+        /*.AppendChild(
+            Button.New()
+                .WithCss("card")
+                .Child(
+                    Box.New(Orientation.Vertical, 12)
+                        .WithMargin(12)
+                        .AppendChild(Label.New("\"Levels\" - The Named")
+                            .WithMarkup()
+                            .WithCss("title-3"))
+                        .AppendChild(Label.New("I put together in a factory\nMy waste is premeditated, and my behavior is predictable\nBut the materials from which I am made are not as predictable\nI find mind self out of alignment\nDrifting further from the safe place\nI seethe structure beneath the chaos\nThe world I live in was constructed\nIf worlds can be constructed why not make my own")
+                            .WithMarkup().WithHalign(Align.Center)
+                            .WithCss(""))))*/
+        .AppendChild(GetRecentFilesBox())
+        .AppendChild(openFileButton)
+        .AppendChild(openUrlButton);
 
     var clamp = Clamp.New().WithMarginX(32);
     clamp.SetChild(box);
@@ -105,10 +113,10 @@ Box GetRecentFilesBox()
         fileListBox.Append(row);
     }
 
-    return box.WithChild(
+    return box.AppendChild(
             Label.New("Open recent files:")
             .WithCss("title-2"))
-        .WithChild(fileListBox);
+        .AppendChild(fileListBox);
 }
 
 ApplicationWindow GetMainWindow()
@@ -205,10 +213,10 @@ ApplicationWindow GetMainWindow()
     };
 
     var box = Box.New(Orientation.Vertical, 12)
-        .WithChild(header)
-        .WithChild(list)
-        .WithChild(submitButton)
-        .WithChild(resetButton)
+        .AppendChild(header)
+        .AppendChild(list)
+        .AppendChild(submitButton)
+        .AppendChild(resetButton)
         .WithMargin(32);
 
     var clamp = new Clamp
