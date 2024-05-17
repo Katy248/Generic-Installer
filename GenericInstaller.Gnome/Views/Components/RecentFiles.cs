@@ -5,19 +5,21 @@ using GenericInstaller.Gnome.Extensions;
 
 namespace GenericInstaller.Gnome.Views.Components;
 
-public static class RecentFiles
+public class RecentFiles : Box
 {
-    public static Box New()
+    private string[] _recentFiles = ["file1", "recent file2"];
+    protected override void Initialize()
     {
-        var files = new[] { "file1", "file2" };
+        SetOrientation(Orientation.Vertical);
+        SetSpacing(12);
 
-        var box = Box.New(Orientation.Vertical, 32);
-        if (files.Length == 0) return box;
-
+        if (_recentFiles.Length == 0)
+            return;
+        
         var fileListBox = ListBox.New()
             .WithCss("boxed-list");
 
-        foreach (var file in files)
+        foreach (var file in _recentFiles)
         {
             var row = new ActionRow
             {
@@ -28,7 +30,7 @@ public static class RecentFiles
             fileListBox.Append(row);
         }
 
-        return box.AppendChild(
+        this.AppendChild(
                 Label.New("Open recent files:")
                     .WithCss("title-2"))
             .AppendChild(fileListBox);

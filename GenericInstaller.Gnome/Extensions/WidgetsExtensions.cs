@@ -1,7 +1,6 @@
-using GObject;
 using Gtk;
 
-namespace GenericInstaller.Gnome;
+namespace GenericInstaller.Gnome.Extensions;
 
 public static class WidgetsExtensions
 {

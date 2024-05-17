@@ -28,6 +28,7 @@ public class MainWindow : ApplicationWindow
             var dialog = FileDialog.New();
             dialog.DefaultFilter = FileFilter.New();
             dialog.DefaultFilter.AddPattern("*.toml");
+            dialog.Modal = true;
             var file = await dialog.OpenAsync(this);
         };
 
@@ -52,6 +53,9 @@ public class MainWindow : ApplicationWindow
             
             dialog.Show();
         };
+        var bntBox = Box.New(Orientation.Vertical, 12)
+            .AppendChild(openFileButton)
+            .AppendChild(openUrlButton);
 
         var box = Box.New(Orientation.Vertical, 32)
             .WithValign(Align.Center)
@@ -68,9 +72,8 @@ public class MainWindow : ApplicationWindow
                             .AppendChild(Label.New("I put together in a factory\nMy waste is premeditated, and my behavior is predictable\nBut the materials from which I am made are not as predictable\nI find mind self out of alignment\nDrifting further from the safe place\nI seethe structure beneath the chaos\nThe world I live in was constructed\nIf worlds can be constructed why not make my own")
                                 .WithMarkup().WithHalign(Align.Center)
                                 .WithCss(""))))*/
-            .AppendChild(Components.RecentFiles.New())
-            .AppendChild(openFileButton)
-            .AppendChild(openUrlButton);
+            .AppendChild(new Components.RecentFiles())
+            .AppendChild(bntBox);
 
         var clamp = Clamp.New().WithMarginX(32);
         clamp.SetChild(box);
