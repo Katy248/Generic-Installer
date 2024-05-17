@@ -5,12 +5,6 @@ namespace GenericInstaller.Gnome;
 
 public static class WidgetsExtensions
 {
-    public static TBox AppendChild<TBox>(this TBox box, Widget widget) where TBox : Gtk.Box
-    {
-        box.Append(widget);
-        return box;
-    }
-
     public static TWidget WithCss<TWidget>(this TWidget w, params string[] cssClasses) where TWidget : Widget
     {
         foreach (var css in cssClasses)
@@ -18,18 +12,6 @@ public static class WidgetsExtensions
             w.AddCssClass(css);
         }
 
-        return w;
-    }
-    public static TLabel WithMarkup<TLabel>(this TLabel l) where TLabel : Label
-    {
-        // l.UseMarkup = true;
-        l.SetUseMarkup(true);
-        return l;
-    }
-
-    public static TWidget Child<TWidget>(this TWidget w, Widget child) where TWidget: Button
-    {
-        w.SetChild(child);
         return w;
     }
     public static TWidget WithHalign<TWidget>(this TWidget w, Align align) where TWidget: Widget
@@ -53,10 +35,29 @@ public static class WidgetsExtensions
         widget.MarginStart = margin;
         widget.MarginEnd = margin;
         return widget;
-    }public static TWidget WithMarginY<TWidget>(this TWidget widget, int margin) where TWidget: Widget
+    }
+    public static TWidget WithMarginY<TWidget>(this TWidget widget, int margin) where TWidget: Widget
     {
         widget.MarginTop = margin;
         widget.MarginBottom = margin;
         return widget;
     }
+    public static TWidget WithTooltip<TWidget>(this TWidget widget, string tooltip) where TWidget: Widget
+    {
+        widget.TooltipMarkup = tooltip;
+        return widget;
+    }
+    /// <summary>
+    /// Sets <see cref="Widget.WidthRequest"/> to width.
+    /// </summary>
+    /// <param name="widget"></param>
+    /// <param name="width"></param>
+    /// <typeparam name="TWidget"></typeparam>
+    /// <returns></returns>
+    public static TWidget Width<TWidget>(this TWidget widget, int width) where TWidget: Widget
+    {
+        widget.WidthRequest = width;
+        return widget;
+    }
+    
 }

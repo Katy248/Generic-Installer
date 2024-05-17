@@ -1,0 +1,22 @@
+[[variables]]
+name = "PKG_MANAGER"
+display = { name = "Пакетный менеджер", tooltip = "", style = "Dropdown" }
+type = "string"
+allowed_values = [ "dnf", "flatpak" ]
+
+[[variables]]
+name = "UPGRADE"
+display = { name = "Обновить перед установкой" }
+type = "bool"
+
+[[variables]]
+name = "PACKAGE"
+display.name = "Пакет"
+
+[[variables]]
+name = "PASSWORD"
+display.name = "Пароль"
+display.style = "Password"
+
+[make]
+file = "https://"
