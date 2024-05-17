@@ -5,15 +5,15 @@ using FileInfo = System.IO.FileInfo;
 
 namespace GenericInstaller.Gnome;
 
-public class Application
+public class App
 {
     private readonly Adw.Application _application;
-    private Application(string appId)
+    private App(string appId)
     {
         _application = Adw.Application.New(appId, ApplicationFlags.DefaultFlags);
     }
 
-    private Application SetMainWindow(ApplicationWindow window)
+    private App SetMainWindow(ApplicationWindow window)
     {
         _application.OnActivate += (sender, args) =>
         {
@@ -24,17 +24,17 @@ public class Application
         return this;
     }
 
-    public static Application MainWindow(string appId)
+    public static App MainWindow(string appId)
     {
-        var app = new Application(appId);
+        var app = new App(appId);
 
         app.SetMainWindow(new MainWindow());
 
         return app;
     }
-    public static Application WithSetupWindow(string appId, FileInfo file)
+    public static App WithSetupWindow(string appId, FileInfo file)
     {
-        var app = new Application(appId);
+        var app = new App(appId);
 
         app.SetMainWindow(new SetupWindow(file));
         
