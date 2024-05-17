@@ -14,6 +14,8 @@ public class Variable
 {
     [TomlProperty("name")]
     public string Name { get; set; }
+    [TomlProperty("default_value")]
+    public string DefaultValue { get; set; }
     [TomlProperty("display")]
     public DisplayConfiguration Display { get; set; }
     [TomlProperty("type")]

@@ -1,14 +1,7 @@
-using System.Globalization;
-using Adw;
-using GenericInstaller.Gnome.Extensions;
 using GenericInstaller.Gnome.Views.Windows;
 using Gio;
-using Gtk;
 using ApplicationWindow = Adw.ApplicationWindow;
 using FileInfo = System.IO.FileInfo;
-using HeaderBar = Adw.HeaderBar;
-using MessageDialog = Adw.MessageDialog;
-using Task = System.Threading.Tasks.Task;
 
 namespace GenericInstaller.Gnome;
 
@@ -35,7 +28,7 @@ public class Application
     {
         var app = new Application(appId);
 
-        app.SetMainWindow(Views.Windows.MainWindow.New());
+        app.SetMainWindow(new MainWindow());
 
         return app;
     }
@@ -43,7 +36,7 @@ public class Application
     {
         var app = new Application(appId);
 
-        app.SetMainWindow(SetupWindow.New());
+        app.SetMainWindow(new SetupWindow(file));
         
         return app;
     }
