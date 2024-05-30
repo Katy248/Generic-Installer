@@ -2,24 +2,16 @@ using Adw;
 using GenericInstaller.Gnome.Extensions;
 using Gtk;
 using ApplicationWindow = Adw.ApplicationWindow;
-using HeaderBar = Adw.HeaderBar;
-using MessageDialog = Adw.MessageDialog;
+using HeaderBar = Gtk.HeaderBar;
+using MessageDialog = Gtk.MessageDialog;
 
-namespace GenericInstaller.Gnome.Views.Windows;
+namespace GenericInstaller.Gnome.Views.Views;
 
-public class SetupWindow : ApplicationWindow
+public class SetupView
 {
-    private readonly FileInfo _file;
-
-    public SetupWindow(FileInfo file) : base()
+    
+    public Widget GetView(ApplicationWindow parent)
     {
-        _file = file;
-    }
-
-    protected override void Initialize()
-    {
-        DefaultWidth = 600;
-        
         var header = Label.New("Maker").WithCss("title-1");
 
         var list = ListBox.New().WithCss("boxed-list");
@@ -112,7 +104,7 @@ public class SetupWindow : ApplicationWindow
         };
         resetButton.OnClicked += (sender, args) =>
         {
-            var dialog = MessageDialog.New(this, "Reset parameters", "Are you shure? This action cannot be undo")
+            var dialog = Adw.MessageDialog.New(parent, "Reset parameters", "Are you shure? This action cannot be undo")
                 .AppendResponse("Cancel", isDefault: true)
                 .AppendResponse("Reset", ResponseAppearance.Destructive);
             
@@ -136,7 +128,7 @@ public class SetupWindow : ApplicationWindow
             Child = clamp
         };
 
-        var headerBar = new HeaderBar
+        var headerBar = new Adw.HeaderBar
         {
             TitleWidget = WindowTitle.New("Installer", "File 'makefile'")
         };
@@ -148,6 +140,6 @@ public class SetupWindow : ApplicationWindow
         };
         view.AddTopBar(headerBar);
 
-        SetContent(view);
+        return view;
     }
 }

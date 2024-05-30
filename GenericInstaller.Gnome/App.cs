@@ -1,3 +1,4 @@
+using GenericInstaller.Gnome.Views.Views;
 using GenericInstaller.Gnome.Views.Windows;
 using Gio;
 using ApplicationWindow = Adw.ApplicationWindow;
@@ -27,19 +28,21 @@ public class App
     public static App MainWindow(string appId)
     {
         var app = new App(appId);
-
-        app.SetMainWindow(new MainWindow());
+        var window = new MainWindow();
+        var view = new DockerListView();
+        window.SetContent(view.GetView(window));
+        app.SetMainWindow(window);
 
         return app;
     }
-    public static App WithSetupWindow(string appId, FileInfo file)
+    /*public static App WithSetupWindow(string appId, FileInfo file)
     {
         var app = new App(appId);
 
         app.SetMainWindow(new SetupWindow(file));
         
         return app;
-    }
+    }*/
 
     public int Run(string[] args)
     {
